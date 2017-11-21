@@ -1,4 +1,4 @@
-﻿// WhatIsThisツールの Entities を定義されます
+﻿// Entities を定義されます
 // 主に XML ファイルの構造を定義されます
 
 using System.Text.RegularExpressions;
@@ -11,8 +11,8 @@ namespace NamingConvention.Detail
     }
     public class Pattern
     {
-        public string match;    // マッチ式
-        public Group[] groups;
+        public string match;    // 正規表現式
+        public Group[] groups;  // グループ
 
         Regex regex;
 

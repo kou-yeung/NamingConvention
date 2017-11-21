@@ -1,7 +1,6 @@
 ﻿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
-using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using System;
@@ -12,11 +11,12 @@ using System.Text.RegularExpressions;
 namespace NamingConvention
 {
     [InitializeOnLoad]
-    public class WhatIsThis
+    public class NamingConvention
     {
         // パターンファイルのパス
         public static readonly string SettingsFilePath = Path.Combine(Application.dataPath, "NamingConvention/Pattern.xml").Replace("\\", "/");
 
+        // パターン一覧 ( Pattern.xml )
         static Detail.Patterns patterns;
         static Detail.Patterns Patterns
         {
@@ -33,6 +33,7 @@ namespace NamingConvention
                 return patterns;
             }
         }
+        // GUI 描画時の負荷軽減するためにスタイルをキャッシュしておく
         static GUIStyle style;
         static GUIStyle Style
         {
@@ -47,7 +48,7 @@ namespace NamingConvention
             }
         }
 
-        static WhatIsThis()
+        static NamingConvention()
         {
             EditorApplication.update += Update;
 
@@ -87,7 +88,6 @@ namespace NamingConvention
 
             // 情報取得
             showInfo = GetInfo(AssetDatabase.GUIDToAssetPath(currentGUID));
-            //Detail.Utilits.ShowNotification(showInfo);
         }
 
         // パスを指定してい情報文字列を返す
@@ -103,8 +103,10 @@ namespace NamingConvention
 
             var res = "";
 
+            // パターン一覧を走査する
             foreach (var pattern in Patterns.patterns)
             {
+                // 正規表現にマッチするかどうか確認
                 var match = pattern.Match(path);
                 if (match == Match.Empty) continue;
 
@@ -151,9 +153,9 @@ namespace NamingConvention
             foreach (var fn in importedAssets)
             {
                 var fullpath = Path.GetFullPath(fn).Replace("\\", "/");
-                if (fullpath == WhatIsThis.SettingsFilePath)
+                if (fullpath == NamingConvention.SettingsFilePath)
                 {
-                    WhatIsThis.Refresh();
+                    NamingConvention.Refresh();
                 }
             }
         }
