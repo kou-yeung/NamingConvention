@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="shift_jis"?>
+<Patterns>
+  <!-- sample : NamingConvention/Detail フォルダを選択されたとき、[命名規則詳細] と表示されます -->
+  <Pattern match="(NamingConvention)/Editor/(Detail)$">
+    <Group index="1" equal="NamingConvention">命名規則</Group>
+    <Group index="2" equal="Detail">詳細</Group>
+  </Pattern>
+
+  <!--
+    (例) AAAABBC という命名規則がある
+    AAAA : 数字 4 桁
+    BB : 数字 2 桁
+    C: 数字 1 桁
+    のように定義されたら
+  -->
+  <Pattern match="([0-9]{4})([0-9]{2})([0-9]{1}$)">
+    <!-- AAAA : 種類 -->
+    <Group index="1" equal="1001">ゴブリン</Group>
+    <Group index="1" equal="1002">ハーピー</Group>
+    <Group index="1" equal="1003">タイガー</Group>
+    <!-- BB : 種族 -->
+    <Group index="2" equal="01">[人間]</Group>
+    <Group index="2" equal="02">[獣]</Group>
+    <!-- C : 属性 -->
+    <Group index="3" equal="1">(属性:地)</Group>
+    <Group index="3" equal="2">(属性:水)</Group>
+    <Group index="3" equal="3">(属性:火)</Group>
+    <Group index="3" equal="4">(属性:風)</Group>
+  </Pattern>
+</Patterns>
